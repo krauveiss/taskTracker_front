@@ -22,9 +22,20 @@ export function useTasks() {
         }
     }, [])
 
+    const deleteTask = useCallback(
+        async (id: string) => {
+            try {
+                await taskApi.delete(id);
+                await fetchTasks();
+            } catch {
+                setError("Не удалось удалить задачу");
+            }
+        }, [fetchTasks]
+    )
+
     useEffect(() => {
         fetchTasks()
     }, [fetchTasks])
 
-    return { tasks, loading, error, fetchTasks };
+    return { tasks, loading, error, fetchTasks, deleteTask };
 }

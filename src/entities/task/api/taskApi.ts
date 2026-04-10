@@ -12,6 +12,10 @@ export const taskApi: ITaskApi = {
     },
     toggle(id: string) {
         return http.patch<Task>(`/api/task/${id}/toggle`);
+    },
+    delete(id: string) {
+        return http.delete<void>(`/api/task/${id}`)
     }
+
 
 }
