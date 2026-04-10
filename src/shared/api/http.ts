@@ -1,4 +1,5 @@
 type HttpMethod = "GET" | "POST" | "PATCH" | "DELETE";
+const BASE_URL = "http://127.0.0.1:8000";
 
 async function request<T>(
     url: string,
@@ -7,7 +8,7 @@ async function request<T>(
 
 ): Promise<T> {
 
-    const response = await fetch(url, {
+    const response = await fetch(BASE_URL + url, {
         method,
         headers: {
             'Content-Type': 'application/json'
@@ -24,7 +25,7 @@ async function request<T>(
 
 export const http = {
     get: <T>(url: string) => request<T>(url, 'GET'),
-    post: <T>(url: string, body: unknown) => request<T>(url, 'POST'),
-    patch: <T>(url: string, body?: unknown) => request<T>(url, 'PATCH'),
+    post: <T>(url: string, body: unknown) => request<T>(url, 'POST', body),
+    patch: <T>(url: string, body?: unknown) => request<T>(url, 'PATCH', body),
     delete: <T>(url: string) => request<T>(url, 'DELETE')
 }
