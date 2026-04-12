@@ -1,12 +1,14 @@
-import { Button, Card, IconButton } from '@mui/material'
+import { Button, Card, IconButton, Tooltip } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import type { Task } from '../../../entities/task/model/types'
+import { ChangeCircle, DoneAll } from '@mui/icons-material'
 
 type TaskPanelProps = {
     task: Task,
-    onDelete: () => void
+    onDelete: () => void,
+    onToggle: () => void
 }
-export const TaskPanel = ({ task, onDelete }: TaskPanelProps) => {
+export const TaskPanel = ({ task, onDelete, onToggle }: TaskPanelProps) => {
     return (
         <Card
             sx={{
@@ -18,19 +20,28 @@ export const TaskPanel = ({ task, onDelete }: TaskPanelProps) => {
                 width: 200
             }}
         >
+            <div style={{ opacity: 0.7 }}>
+                {task.done ? <DoneAll sx={{ color: 'green' }}></DoneAll> : ''}
+            </div>
             <div>
                 <div style={{ fontWeight: 600, wordBreak: 'break-word' }}>
                     {task.title}
                 </div>
-                <div style={{ opacity: 0.7 }}>
-                    {task.done ? 'Completed' : 'Not completed'}
-                </div>
+
             </div>
 
             <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'flex-end' }}>
-                <IconButton onClick={onDelete}>
-                    <DeleteIcon />
-                </IconButton>
+                <Tooltip title={task.done ? 'Mark as uncompleted' : 'Mark as completed'}>
+                    <IconButton onClick={onToggle}>
+                        <ChangeCircle />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title='Delete task'>
+                    <IconButton onClick={onDelete}>
+                        <DeleteIcon sx={{ color: '#f25270' }} />
+                    </IconButton>
+                </Tooltip>
+
             </div>
         </Card>
     )

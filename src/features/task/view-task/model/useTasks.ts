@@ -33,9 +33,27 @@ export function useTasks() {
         }, [fetchTasks]
     )
 
+    const toggleTask = useCallback(async (id: string) => {
+        try {
+            await taskApi.toggle(id);
+
+            setTasks(prev =>
+                prev.map(task =>
+                    task.id === id
+                        ? { ...task, done: !task.done }
+                        : task
+                )
+            );
+        } catch (e) {
+            console.log(e)
+            setError("Не удалось изменить задачу");
+        }
+    }, []);
+
+
     useEffect(() => {
         fetchTasks()
     }, [fetchTasks])
 
-    return { tasks, loading, error, fetchTasks, deleteTask };
+    return { tasks, loading, error, fetchTasks, deleteTask, toggleTask };
 }

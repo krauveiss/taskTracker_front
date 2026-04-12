@@ -11,7 +11,7 @@ export const taskApi: ITaskApi = {
         return http.post<Task>("/api/task", input);
     },
     toggle(id: string) {
-        return http.patch<Task>(`/api/task/${id}/toggle`);
+        return http.patch<void>(`/api/task/${id}/toggle`);
     },
     delete(id: string) {
         return http.delete<void>(`/api/task/${id}`)

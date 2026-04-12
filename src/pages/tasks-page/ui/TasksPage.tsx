@@ -4,7 +4,7 @@ import { CreateTaskPanel } from "../../../widgets/create-task-panel/ui/CreateTas
 import { TaskPanel } from "../../../widgets/task-panel/ui/TaskPanel";
 
 export function TasksPage() {
-    const { tasks, fetchTasks, deleteTask } = useTasks();
+    const { tasks, fetchTasks, deleteTask, toggleTask } = useTasks();
 
     return (
         <div
@@ -25,8 +25,7 @@ export function TasksPage() {
 
                     {tasks.map(task => (
                         <Grid key={task.id}>
-
-                            <TaskPanel task={task} onDelete={() => deleteTask(task.id)}></TaskPanel>
+                            <TaskPanel task={task} onDelete={() => deleteTask(task.id)} onToggle={() => toggleTask(task.id)}></TaskPanel>
                         </Grid>
                     ))}
                 </Grid>

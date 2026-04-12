@@ -16,7 +16,7 @@ export const CreateTaskPanel = ({ onCreated }: { onCreated: () => void }) => {
 
                 <CardContent>
                     <Stack spacing={2}>
-                        <Typography variant="h6">
+                        <Typography variant="h6" >
                             Create Task
                         </Typography>
 
@@ -26,13 +26,15 @@ export const CreateTaskPanel = ({ onCreated }: { onCreated: () => void }) => {
                             label="Task title"
                             fullWidth
                             size='small'
+                            required
+                            minRows={1}
                         />
 
                         <Button
                             type="submit"
                             disabled={loading}
                             variant="contained"
-                            style={{ borderRadius: '10px' }}
+                            style={{ borderRadius: '10px', fontWeight: 600, fontFamily: 'sans-serif' }}
                         >
                             Create Task
                         </Button>

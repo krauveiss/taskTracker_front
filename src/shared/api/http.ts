@@ -19,7 +19,9 @@ async function request<T>(
     if (!response.ok) {
         throw new Error(`HTTP error: ${response.status}`)
     }
-    return response.json() as Promise<T>
+    const text = await response.text();
+
+    return text ? JSON.parse(text) : undefined as T;
 
 }
 
