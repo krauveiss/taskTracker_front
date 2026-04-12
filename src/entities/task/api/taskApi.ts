@@ -1,5 +1,5 @@
 import { http } from "../../../shared/api/http";
-import type { Task, CreateTaskInput } from "../model/types";
+import type { Task, CreateTaskInput, EditTaskInput } from "../model/types";
 import type { ITaskApi } from "./ItaskApi";
 
 export const taskApi: ITaskApi = {
@@ -15,6 +15,9 @@ export const taskApi: ITaskApi = {
     },
     delete(id: string) {
         return http.delete<void>(`/api/task/${id}`)
+    },
+    editTask(id: string, input: EditTaskInput) {
+        return http.put<Task>(`/api/task/${id}`, input)
     }
 
 

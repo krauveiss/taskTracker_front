@@ -2,9 +2,15 @@ export type Task = {
     id: string,
     title: string,
     done: boolean,
-    createdAt: string
+    created_at: string
 }
 
 export type CreateTaskInput = {
     title: string
+}
+
+export type EditTaskInput = {
+    title: string,
+    done: boolean
+
 }

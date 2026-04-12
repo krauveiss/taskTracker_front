@@ -1,10 +1,11 @@
-import { Grid, Skeleton } from "@mui/material";
+import { Grid } from "@mui/material";
 import { useTasks } from "../../../features/task/view-task/model/useTasks";
 import { CreateTaskPanel } from "../../../widgets/create-task-panel/ui/CreateTaskPanel";
 import { TaskPanel } from "../../../widgets/task-panel/ui/TaskPanel";
+import type { EditTaskInput } from "../../../entities/task/model/types";
 
 export function TasksPage() {
-    const { tasks, fetchTasks, deleteTask, toggleTask } = useTasks();
+    const { tasks, fetchTasks, deleteTask, toggleTask, editTask } = useTasks();
 
     return (
         <div
@@ -25,7 +26,7 @@ export function TasksPage() {
 
                     {tasks.map(task => (
                         <Grid key={task.id}>
-                            <TaskPanel task={task} onDelete={() => deleteTask(task.id)} onToggle={() => toggleTask(task.id)}></TaskPanel>
+                            <TaskPanel task={task} onDelete={() => deleteTask(task.id)} onToggle={() => toggleTask(task.id)} onEdit={(id: string, title: string, done: boolean) => editTask(id, title, done)}></TaskPanel>
                         </Grid>
                     ))}
                 </Grid>

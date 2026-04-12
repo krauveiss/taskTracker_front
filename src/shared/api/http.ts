@@ -1,4 +1,4 @@
-type HttpMethod = "GET" | "POST" | "PATCH" | "DELETE";
+type HttpMethod = "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
 const BASE_URL = "http://127.0.0.1:8000";
 
 async function request<T>(
@@ -29,5 +29,6 @@ export const http = {
     get: <T>(url: string) => request<T>(url, 'GET'),
     post: <T>(url: string, body: unknown) => request<T>(url, 'POST', body),
     patch: <T>(url: string, body?: unknown) => request<T>(url, 'PATCH', body),
-    delete: <T>(url: string) => request<T>(url, 'DELETE')
+    delete: <T>(url: string) => request<T>(url, 'DELETE'),
+    put: <T>(url: string, body?: unknown) => request<T>(url, 'PUT', body)
 }

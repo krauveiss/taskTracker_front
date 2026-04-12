@@ -50,10 +50,27 @@ export function useTasks() {
         }
     }, []);
 
+    const editTask = useCallback(async (id: string, title: string, done: boolean) => {
+        try {
+            await taskApi.editTask(id, { title, done });
+
+            setTasks(prev =>
+                prev.map(task =>
+                    task.id === id
+                        ? { ...task, done: task.done, title: title }
+                        : task
+                )
+            );
+        } catch (e) {
+            console.log(e)
+            setError("Не удалось изменить задачу");
+        }
+    }, []);
+
 
     useEffect(() => {
         fetchTasks()
     }, [fetchTasks])
 
-    return { tasks, loading, error, fetchTasks, deleteTask, toggleTask };
+    return { tasks, loading, error, fetchTasks, deleteTask, toggleTask, editTask };
 }
