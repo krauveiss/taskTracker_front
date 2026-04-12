@@ -1,24 +1,37 @@
+import { Grid } from "@mui/material";
 import { useTasks } from "../../../features/task/view-task/model/useTasks";
 import { CreateTaskPanel } from "../../../widgets/create-task-panel/ui/CreateTaskPanel";
 import { TaskPanel } from "../../../widgets/task-panel/ui/TaskPanel";
 
 export function TasksPage() {
-    const { tasks, loading, fetchTasks, deleteTask } = useTasks();
+    const { tasks, fetchTasks, deleteTask } = useTasks();
 
     return (
-        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', height: '90vh', marginTop: '20px' }}>
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                padding: '20px',
+                minHeight: '100vh'
+            }}
+        >
             <CreateTaskPanel onCreated={fetchTasks} />
-            {
-                !loading ? (
-                    <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px', gap: '20px' }}>
-                        {tasks.map(task => (
-                            <TaskPanel task={task} key={task.id} onDelete={() => deleteTask(task.id)}></TaskPanel>
-                        ))}
-                    </div>
-                ) : (
-                    <div>Загрузка</div>
-                )
-            }
+            <div style={{ marginTop: '20px' }}>
+                <Grid container spacing={2} sx={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}>
+
+                    {tasks.map(task => (
+                        <Grid key={task.id}>
+
+                            <TaskPanel task={task} onDelete={() => deleteTask(task.id)}></TaskPanel>
+                        </Grid>
+                    ))}
+                </Grid>
+            </div>
+
 
         </div>
     );
